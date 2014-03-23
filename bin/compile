@@ -1,3 +1,5 @@
+#!bin/bash
+
 #grab oracle java (auto accept licence)
 add-apt-repository -y ppa:webupd8team/java
 apt-get update
