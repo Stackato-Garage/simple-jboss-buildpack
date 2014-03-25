@@ -33,6 +33,9 @@ install_java ${BUILD_DIR} ${javaVersion}
 jdk_overlay ${BUILD_DIR}
 echo "done"
 
+# install jboss in /
+(cd /; wget http://download.jboss.org/jbossas/7.1/jboss-as-7.1.1.Final/jboss-as-7.1.1.Final.tar.gz | tar xzf -)
+
 
 # install java (auto accept licence)
 #add-apt-repository -y ppa:webupd8team/java
@@ -45,7 +48,5 @@ echo "done"
 #cd /tmp; wget http://mirror.gopotato.co.uk/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.tar.gz
 #cd /opt; tar -xzf /tmp/apache-maven-3.0.5-bin.tar.gz; mv apache-maven-3.0.5 maven; ln -s /opt/maven/bin/mvn /usr/local/bin; rm -rf /tmp/*
 
-# install jboss in /
-#wget http://download.jboss.org/jbossas/7.1/jboss-as-7.1.1.Final/jboss-as-7.1.1.Final.tar.gz | tar xzf -
 
 echo "-----> HELLO FROM SIMPLE BUILDPACK"
