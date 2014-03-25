@@ -39,7 +39,10 @@ echo "INSTALL JBOSS"
 wget --quiet http://download.jboss.org/jbossas/7.1/jboss-as-7.1.1.Final/jboss-as-7.1.1.Final.tar.gz
 tar xzf jboss-as-7.1.1.Final.tar.gz
 
-ls -R jboss-as-7.1.1.Final
+echo PWD
+pwd
+echo LS
+ls /app
 
 cp hello-java-1.0.war jboss-as-7.1.1.Final/standalone/deployments/
 
