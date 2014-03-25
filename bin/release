@@ -5,5 +5,5 @@
 cat << EOF
 ---
 default_process_types:
-  web: cat hello.txt
+  web: java -version
 EOF
