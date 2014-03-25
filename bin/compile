@@ -34,7 +34,7 @@ install_java ${BUILD_DIR} ${javaVersion}
 jdk_overlay ${BUILD_DIR}
 echo "done"
 
-# install jboss in /
+# install jboss
 echo "INSTALL JBOSS"
 wget --quiet http://download.jboss.org/jbossas/7.1/jboss-as-7.1.1.Final/jboss-as-7.1.1.Final.tar.gz
 tar xzf jboss-as-7.1.1.Final.tar.gz
