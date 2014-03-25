@@ -40,7 +40,8 @@ wget --quiet http://download.jboss.org/jbossas/7.1/jboss-as-7.1.1.Final/jboss-as
 tar xzf jboss-as-7.1.1.Final.tar.gz
 
 ls -R jboss-as-7.1.1.Final
-cp hello-java-1.0.war jboss-as-7.1.1.Final/deploy/
+
+cp hello-java-1.0.war jboss-as-7.1.1.Final/standalone/deployments/
 
 # install java (auto accept licence)
 #add-apt-repository -y ppa:webupd8team/java

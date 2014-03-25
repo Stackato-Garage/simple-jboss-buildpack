@@ -5,5 +5,5 @@
 cat << EOF
 ---
 default_process_types:
-  web: java -version
+  web: jboss-as-7.1.1.Final/bin/standalone.sh
 EOF
