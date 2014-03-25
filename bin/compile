@@ -26,6 +26,7 @@ if [ ! -f ${BUILD_DIR}/system.properties ]; then
   echo "java.runtime.version=1.6" > ${BUILD_DIR}/system.properties
 fi
 
+echo "INSTALL JDK "
 # install JDK 
 javaVersion=$(detect_java_version ${BUILD_DIR})
 echo -n "-----> Installing OpenJDK ${javaVersion}..."
@@ -34,7 +35,9 @@ jdk_overlay ${BUILD_DIR}
 echo "done"
 
 # install jboss in /
-wget --quiet http://download.jboss.org/jbossas/7.1/jboss-as-7.1.1.Final/jboss-as-7.1.1.Final.tar.gz | tar xzf -
+echo "INSTALL JBOSS"
+wget --quiet http://download.jboss.org/jbossas/7.1/jboss-as-7.1.1.Final/jboss-as-7.1.1.Final.tar.gz
+tar xzf jboss-as-7.1.1.Final.tar.gz
 
 ls -R /jboss-as-7.1.1.Final
 
@@ -43,7 +46,6 @@ ls -R /jboss-as-7.1.1.Final
 #add-apt-repository -y ppa:webupd8team/java
 #apt-get update
 #echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
-#echo "INSTALL JAVA"
 #sudo apt-get install -y oracle-java7-installer
 
 # mvn - not required if app is precompiled on dev system
