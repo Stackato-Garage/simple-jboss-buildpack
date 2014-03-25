@@ -1,11 +1,47 @@
 #!/usr/bin/env bash
 
+BIN_DIR=$(cd $(dirname $0); pwd)
+BUILD_DIR=$1
+
+. $BIN_DIR/common
+
+# parse args
+APP_BUILD_DIR=$(cd $1; pwd)
+CACHE_DIR=$2
+ENV_DIR=$3
+
+# Move app to a static build dir to keep paths the same between builds
+BUILD_DIR="/tmp/scala_buildpack_build_dir"
+mv $APP_BUILD_DIR $BUILD_DIR
+
+curl --silent --location http://heroku-jvm-common.s3.amazonaws.com/jvm-buildpack-common.tar.gz | tar xz
+. bin/util
+. bin/java
+
+export_env_dir $ENV_DIR
+
+#create the cache dir if it doesn't exist
+mkdir -p $CACHE_DIR
+
+# create default system.properties 
+if [ ! -f ${BUILD_DIR}/system.properties ]; then
+  echo "java.runtime.version=1.6" > ${BUILD_DIR}/system.properties
+fi
+
+# install JDK 
+javaVersion=$(detect_java_version ${BUILD_DIR})
+echo -n "-----> Installing OpenJDK ${javaVersion}..."
+install_java ${BUILD_DIR} ${javaVersion}
+jdk_overlay ${BUILD_DIR}
+echo "done"
+
+
 # install java (auto accept licence)
-add-apt-repository -y ppa:webupd8team/java
-apt-get update
-echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
-echo "INSTALL JAVA"
-sudo apt-get install -y oracle-java7-installer
+#add-apt-repository -y ppa:webupd8team/java
+#apt-get update
+#echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+#echo "INSTALL JAVA"
+#sudo apt-get install -y oracle-java7-installer
 
 # mvn - not required if app is precompiled on dev system
 #cd /tmp; wget http://mirror.gopotato.co.uk/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.tar.gz
