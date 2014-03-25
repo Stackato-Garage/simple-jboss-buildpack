@@ -36,6 +36,8 @@ echo "done"
 # install jboss in /
 wget --quiet http://download.jboss.org/jbossas/7.1/jboss-as-7.1.1.Final/jboss-as-7.1.1.Final.tar.gz | tar xzf -
 
+ls -R /jboss-as-7.1.1.Final
+
 
 # install java (auto accept licence)
 #add-apt-repository -y ppa:webupd8team/java
