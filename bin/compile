@@ -3,8 +3,6 @@
 BIN_DIR=$(cd $(dirname $0); pwd)
 BUILD_DIR=$1
 
-. $BIN_DIR/common
-
 # parse args
 APP_BUILD_DIR=$(cd $1; pwd)
 CACHE_DIR=$2
