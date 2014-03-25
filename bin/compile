@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # install java (auto accept licence)
 #add-apt-repository -y ppa:webupd8team/java
