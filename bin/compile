@@ -34,7 +34,7 @@ jdk_overlay ${BUILD_DIR}
 echo "done"
 
 # install jboss in /
-wget http://download.jboss.org/jbossas/7.1/jboss-as-7.1.1.Final/jboss-as-7.1.1.Final.tar.gz | tar xzf -
+wget --quiet http://download.jboss.org/jbossas/7.1/jboss-as-7.1.1.Final/jboss-as-7.1.1.Final.tar.gz | tar xzf -
 
 
 # install java (auto accept licence)
