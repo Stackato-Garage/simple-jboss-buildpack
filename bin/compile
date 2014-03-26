@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# sample buildpack to install Java (JRE 1.6) and a recent version of JBoss 
+# this is for illustrative purposes only, not intended for in production 
+# without further code review
+
+# assumes that the application manifest will deploy a warfile to /jboss/
+
 BIN_DIR=$(cd $(dirname $0); pwd)
 BUILD_DIR=$1
 
@@ -36,25 +42,14 @@ echo "done"
 
 # install jboss
 echo "INSTALL JBOSS"
-wget --quiet http://download.jboss.org/jbossas/7.1/jboss-as-7.1.1.Final/jboss-as-7.1.1.Final.tar.gz
+curl --silent -O http://download.jboss.org/jbossas/7.1/jboss-as-7.1.1.Final/jboss-as-7.1.1.Final.tar.gz
 tar xzf jboss-as-7.1.1.Final.tar.gz
+mv jboss-as-7.1.1.Final.tar.gz jboss
 
-echo PWD
-pwd
-echo LS
-ls /app
-
-cp hello-java-1.0.war jboss-as-7.1.1.Final/standalone/deployments/
-
-# install java (auto accept licence)
-#add-apt-repository -y ppa:webupd8team/java
-#apt-get update
-#echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
-#sudo apt-get install -y oracle-java7-installer
-
-# mvn - not required if app is precompiled on dev system
-#cd /tmp; wget http://mirror.gopotato.co.uk/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.tar.gz
+# install java (auto accept licence)                                                                                                                                    
+#add-apt-repository -y ppa:webupd8team/java                                                                                                                             #apt-get update                                                                                                                                                         
+#echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections                                                          
+#sudo apt-get install -y oracle-java7-installer                                                                                                                         
+# mvn - not required if app is precompiled on dev system                                                                                                                
+#cd /tmp; wget http://mirror.gopotato.co.uk/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.tar.gz                                                           
 #cd /opt; tar -xzf /tmp/apache-maven-3.0.5-bin.tar.gz; mv apache-maven-3.0.5 maven; ln -s /opt/maven/bin/mvn /usr/local/bin; rm -rf /tmp/*
-
-
-echo "-----> HELLO FROM SIMPLE BUILDPACK"

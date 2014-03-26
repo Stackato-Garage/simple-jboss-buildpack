@@ -1,9 +1,10 @@
 #!/bin/sh
 
-# nop
+# start jboss
+# the application should provision a war manually
 
 cat << EOF
 ---
 default_process_types:
-  web: ~stackato/jboss-as-7.1.1.Final/bin/standalone.sh -b "0.0.0.0"
+  web: ~stackato/jboss/bin/standalone.sh -b "0.0.0.0"
 EOF
