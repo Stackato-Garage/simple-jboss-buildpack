@@ -6,5 +6,5 @@
 cat << EOF
 ---
 default_process_types:
-  web: ~stackato/jboss/bin/standalone.sh -b "0.0.0.0"
+  web: jboss/bin/standalone.sh -b "0.0.0.0"
 EOF

@@ -6,26 +6,11 @@
 
 # assumes that the application manifest will deploy a warfile to /jboss/
 
-BIN_DIR=$(cd $(dirname $0); pwd)
 BUILD_DIR=$1
-
-# parse args
-APP_BUILD_DIR=$(cd $1; pwd)
-CACHE_DIR=$2
-ENV_DIR=$3
-
-# Move app to a static build dir to keep paths the same between builds
-BUILD_DIR="/tmp/scala_buildpack_build_dir"
-mv $APP_BUILD_DIR $BUILD_DIR
 
 curl --silent --location http://heroku-jvm-common.s3.amazonaws.com/jvm-buildpack-common.tar.gz | tar xz
 . bin/util
 . bin/java
-
-export_env_dir $ENV_DIR
-
-#create the cache dir if it doesn't exist
-mkdir -p $CACHE_DIR
 
 # create default system.properties 
 if [ ! -f ${BUILD_DIR}/system.properties ]; then
@@ -44,12 +29,4 @@ echo "done"
 echo "INSTALL JBOSS"
 curl --silent -O http://download.jboss.org/jbossas/7.1/jboss-as-7.1.1.Final/jboss-as-7.1.1.Final.tar.gz
 tar xzf jboss-as-7.1.1.Final.tar.gz
-mv jboss-as-7.1.1.Final.tar.gz jboss
-
-# install java (auto accept licence)                                                                                                                                    
-#add-apt-repository -y ppa:webupd8team/java                                                                                                                             #apt-get update                                                                                                                                                         
-#echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections                                                          
-#sudo apt-get install -y oracle-java7-installer                                                                                                                         
-# mvn - not required if app is precompiled on dev system                                                                                                                
-#cd /tmp; wget http://mirror.gopotato.co.uk/apache/maven/maven-3/3.0.5/binaries/apache-maven-3.0.5-bin.tar.gz                                                           
-#cd /opt; tar -xzf /tmp/apache-maven-3.0.5-bin.tar.gz; mv apache-maven-3.0.5 maven; ln -s /opt/maven/bin/mvn /usr/local/bin; rm -rf /tmp/*
+mv jboss-as-7.1.1.Final ${BUILD_DIR}/jboss
