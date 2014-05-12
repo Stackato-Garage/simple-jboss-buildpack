@@ -6,6 +6,7 @@
 
 # assumes that the application manifest will deploy a warfile to /jboss/
 
+BIN_DIR=$(cd $(dirname $0); pwd)
 BUILD_DIR=$1
 
 # Detect when the Stackato client has already exploded the *.war file.
@@ -42,3 +43,5 @@ mv jboss-as-7.1.1.Final ${BUILD_DIR}/jboss
 cd ${BUILD_DIR}
 shopt -s nullglob
 mv manifest.yml *.war *.ear jboss/standalone/deployments/
+
+cp ${BIN_DIR}/../resources/startup .
