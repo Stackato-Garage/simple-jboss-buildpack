@@ -8,6 +8,14 @@
 
 BUILD_DIR=$1
 
+# Detect when the Stackato client has already exploded the *.war file.
+# This is a misfeature, so put things back into app.war.
+if [ -d ${BUILD_DIR}/WEB-INF ]; then
+    cd ${BUILD_DIR}
+    zip -x manifest.yml -x system.properties -romq9 app.war *
+    cd - > /dev/null
+fi
+
 curl --silent --location http://heroku-jvm-common.s3.amazonaws.com/jvm-buildpack-common.tar.gz | tar xz
 . bin/util
 . bin/java
@@ -30,3 +38,7 @@ echo "INSTALL JBOSS"
 curl --silent -O http://download.jboss.org/jbossas/7.1/jboss-as-7.1.1.Final/jboss-as-7.1.1.Final.tar.gz
 tar xzf jboss-as-7.1.1.Final.tar.gz
 mv jboss-as-7.1.1.Final ${BUILD_DIR}/jboss
+
+cd ${BUILD_DIR}
+shopt -s nullglob
+mv manifest.yml *.war *.ear jboss/standalone/deployments/
